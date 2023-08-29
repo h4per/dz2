@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    user_name = models.CharField(
+    name = models.CharField(
         max_length=50,
         verbose_name='Имя пользователя',
         default=''
@@ -24,16 +24,11 @@ class User(AbstractUser):
     age = models.PositiveIntegerField(
         verbose_name='Возраст',
         blank=True,
-        null=True,
+        null=True
     )
     wallet_adress = models.CharField(
         max_length=12,
         verbose_name='Кошелек'
-    )
-    password = models.CharField(
-        verbose_name='password', 
-        max_length=128,
-        default=''
     )
 
     def __str__(self):

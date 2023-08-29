@@ -1,20 +1,20 @@
 from rest_framework import serializers
 from apps.users.models import User
-from apps.historytransfer.serializers import HistoryTransferSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('user_name', 'email', 'phone_number',
+        fields = ('name', 'email', 'phone_number',
                   'created_at', 'age', 'wallet_adress')
         
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(
         max_length=100, write_only=True
     )
     class Meta:
         model = User
-        fields = ('user_name', 'email', 'phone_number', 'age')
+        fields = ('name', 'email', 'phone_number', 'age')
 
     def validate(self, attrs):
         if attrs['phone_number'] != '+996':
@@ -23,7 +23,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         user = User.objects.create(
-            user_name=validated_data['user_name']
+            name=validated_data['name'],
+            email=validated_data['email'],
+            phone_number=validated_data['phone_number'],
+            age=validated_data['age']
         )
         user.set_password(validated_data['phone_number'])
         user.save()
@@ -31,8 +34,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    user_transfers = HistoryTransferSerializer(read_only=True, many=True)
     class Meta:
         model = User
-        fields = ('user_name', 'email', 'phone_number',
-                  'created_at', 'age', 'wallet_adress', 'user_transfers')
+        fields = ('name', 'email', 'phone_number',
+                  'created_at', 'age', 'wallet_adress')
