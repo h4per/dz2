@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    user_name = models.CharField(
+    username = models.CharField(
         max_length=100,
         verbose_name='Имя пользователя'
     )
@@ -19,7 +19,9 @@ class User(models.Model):
         verbose_name='Создано'
     )
     age = models.IntegerField(
-        verbose_name='Возраст'
+        verbose_name='Возраст',
+        blank=True,
+        null=True,
     )
     wallet_adress = models.CharField(
         max_length=12,
@@ -27,8 +29,9 @@ class User(models.Model):
     )
 
     def __str__(self):
-        return self.user_name
+        return self.username
     
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
