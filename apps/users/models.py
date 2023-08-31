@@ -4,11 +4,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    name = models.CharField(
-        max_length=50,
-        verbose_name='Имя пользователя',
-        default=''
-    )
     email = models.EmailField(
         max_length=100,
         verbose_name='Email'
@@ -29,6 +24,12 @@ class User(AbstractUser):
     wallet_adress = models.CharField(
         max_length=12,
         verbose_name='Кошелек'
+    )
+    balance = models.CharField(
+        max_length=255,
+        verbose_name="Баланс",
+        blank = True, null = True,
+        default=0
     )
 
     def __str__(self):
