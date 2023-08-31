@@ -42,5 +42,5 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.wallet_adress:
-            self.wallet_adress = secrets.token_hex(12)
+            self.wallet_adress = secrets.token_hex(6)
         super().save(*args, **kwargs)
