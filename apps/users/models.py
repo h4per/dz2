@@ -1,5 +1,5 @@
 from django.db import models
-
+import secrets
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
@@ -38,3 +38,9 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+
+    def save(self, *args, **kwargs):
+        if not self.wallet_adress:
+            self.wallet_adress = secrets.token_hex(12)
+        super().save(*args, **kwargs)
