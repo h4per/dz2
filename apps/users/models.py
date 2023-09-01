@@ -28,7 +28,6 @@ class User(AbstractUser):
     balance = models.CharField(
         max_length=255,
         verbose_name="Баланс",
-        blank = True, null = True,
         default=0
     )
 
